@@ -5,9 +5,9 @@
 //#pragma warning(disable : 4996)
 //const int maxV = 510;
 //const int INF = 1000000000;
-////nÎª¶¥µãÊı£¬mÎª±ßÊı£¬GÎªÁÚ½Ó¾ØÕó£¬w[]¼ÇÂ¼×î´óÈ¨ÖµÖ®ºÍ
-////num[]¼ÇÂ¼×î¶ÌÂ·¾¶ÌõÊı£¬weightÎªµãÈ¨£¬d[]×î¶Ì¾àÀë
-////stºÍed·Ö±ğÎªÆğµãºÍÖÕµã
+////nä¸ºé¡¶ç‚¹æ•°ï¼Œmä¸ºè¾¹æ•°ï¼ŒGä¸ºé‚»æ¥çŸ©é˜µï¼Œw[]è®°å½•æœ€å¤§æƒå€¼ä¹‹å’Œ
+////num[]è®°å½•æœ€çŸ­è·¯å¾„æ¡æ•°ï¼Œweightä¸ºç‚¹æƒï¼Œd[]æœ€çŸ­è·ç¦»
+////stå’Œedåˆ†åˆ«ä¸ºèµ·ç‚¹å’Œç»ˆç‚¹
 //int n, m, st, ed, G[maxV][maxV], weight[maxV];
 //int d[maxV], w[maxV], num[maxV];
 //bool vis[maxV] = { false };
@@ -48,14 +48,14 @@
 //int main() {
 //	scanf("%d%d%d%d", &n, &m, &st, &ed);
 //	for (int i = 0; i < n; i++) {
-//		scanf("%d", &weight[i]);//¶ÁÈëµãÈ¨
+//		scanf("%d", &weight[i]);//è¯»å…¥ç‚¹æƒ
 //	}
 //	int u, v;
 //	fill(G[0], G[0] + maxV * maxV, INF);
 //	for (int i = 0; i < m; i++) {
 //		scanf("%d%d", &u, &v);
-//		scanf("%d", &G[u][v]);//¶ÁÈë±ßÈ¨
-//		G[v][u] = G[u][v];//ÎŞÏòÍ¼
+//		scanf("%d", &G[u][v]);//è¯»å…¥è¾¹æƒ
+//		G[v][u] = G[u][v];//æ— å‘å›¾
 //	}
 //	Dijkstra(st);
 //	printf("%d %d\n", num[ed], w[ed]);
@@ -63,7 +63,7 @@
 //}
 
 
-////////Bellman-FordËã·¨
+////////Bellman-Fordç®—æ³•
 #include<cstdio>
 #include<cstring>
 #include<vector>
@@ -75,14 +75,14 @@ using namespace std;
 const int maxV = 510;
 const int INF =0x3fffffff;
 struct Node {
-	int v, dis;//vÎªÁÚ½Ó±ßµÄÄ¿±ê¶¥µã
+	int v, dis;//vä¸ºé‚»æ¥è¾¹çš„ç›®æ ‡é¡¶ç‚¹
 	Node(int _v,int _dis):v(_v),dis(_dis) {}
 };
 /*vector<Node> Adj[maxV]*/;
-//weight[]ÓÃÀ´¼ÇÂ¼µãÈ¨£¬num[]¼ÇÂ¼×î¶ÌÂ·¾¶ÌõÊı
+//weight[]ç”¨æ¥è®°å½•ç‚¹æƒï¼Œnum[]è®°å½•æœ€çŸ­è·¯å¾„æ¡æ•°
 //int n, m, st, ed, weight[maxV];
 //int d[maxV], w[maxV], num[maxV];
-set<int> pre[maxV];//Ç°Çı
+set<int> pre[maxV];//å‰é©±
 void Bellman(int s) {
 	fill(d, d + maxV, INF);
 	memset(num, 0, sizeof(num));
@@ -90,11 +90,11 @@ void Bellman(int s) {
 	d[s] = 0;
 	w[s] = weight[s];
 	num[s] = 1;
-//	//ÒÔÏÂÊÇÇó½âÊı×éd²¿·Ö
-//	for (int i = 0; i < n - 1; i++) {   //Ö´ĞĞn-1ÂÖ²Ù×÷£¬nÎª¶¥µãÊı
-//		for (int u = 0; u < n; u++) {   //Ã¿ÂÖ²Ù×÷¶¼±éÀúËùÓĞµÄ±ß
+//	//ä»¥ä¸‹æ˜¯æ±‚è§£æ•°ç»„déƒ¨åˆ†
+//	for (int i = 0; i < n - 1; i++) {   //æ‰§è¡Œn-1è½®æ“ä½œï¼Œnä¸ºé¡¶ç‚¹æ•°
+//		for (int u = 0; u < n; u++) {   //æ¯è½®æ“ä½œéƒ½éå†æ‰€æœ‰çš„è¾¹
 //			for (int j = 0; j < Adj[u].size(); j++) {
-//				int v = Adj[u][j].v;//ÁÚ½Ó±ßµÄ¶¥µã
+//				int v = Adj[u][j].v;//é‚»æ¥è¾¹çš„é¡¶ç‚¹
 //				int dis = Adj[u][j].dis;
 //				if (d[u] + dis < d[v]) {
 //					d[v] = d[u] + dis;
@@ -118,46 +118,46 @@ void Bellman(int s) {
 //		}
 //	}
 //}
-	////SPFAËã·¨
+	////SPFAç®—æ³•
 	vector<Node> Adj[maxV];
-	int n, d[maxV], num[maxV];//numÊı×é¼ÇÂ¼¶¥µãµÄÈë¶Ó´ÎÊı
-	bool inq[maxV];//¶¥µãÊÇ·ñÔÚ¶ÓÁĞÖĞ
+	int n, d[maxV], num[maxV];//numæ•°ç»„è®°å½•é¡¶ç‚¹çš„å…¥é˜Ÿæ¬¡æ•°
+	bool inq[maxV];//é¡¶ç‚¹æ˜¯å¦åœ¨é˜Ÿåˆ—ä¸­
 	bool SPFA(int s) {
 		memset(inq, false, sizeof(inq));
 		memset(num, 0, sizeof(num));
 		fill(d, d + maxV, INF);
-		//Ô´µãÈë¶Ó²¿·Ö
+		//æºç‚¹å…¥é˜Ÿéƒ¨åˆ†
 		queue<int> Q;
 		Q.push(s);
 		inq[s] = true;
 		num[s]++;
 		d[s] = 0;
-		//Ö÷Ìå²¿·Ö
+		//ä¸»ä½“éƒ¨åˆ†
 		while (!Q.empty()) {
 			int u = Q.front();
 			Q.pop();
 			inq[u] = false;
-			//±éÀúuµÄËùÓĞÁÚ½Ó±ßv
+			//éå†uçš„æ‰€æœ‰é‚»æ¥è¾¹v
 			for (int j = 0; j < Adj[u].size(); j++) {
 				int v = Adj[u][j].v;
 				int dis = Adj[u][j].dis;
 				if (d[u] + dis < d[v]) {
 					d[v] = d[u] + dis;
-					if (!inq[v]) {   //Èç¹ûV²»ÔÚ¶ÓÁĞÖĞ
+					if (!inq[v]) {   //å¦‚æœVä¸åœ¨é˜Ÿåˆ—ä¸­
 						Q.push(v);
 						inq[v] = true;
 						num[v]++;
-						if (num[v] >= n) return false;//ÓĞ¿ÉÄÜ³öÏÖ¸º»·
+						if (num[v] >= n) return false;//æœ‰å¯èƒ½å‡ºç°è´Ÿç¯
 					}
 				}
 			}
 		}
-		return true;//ÎŞ¿É´ï¸º»·
+		return true;//æ— å¯è¾¾è´Ÿç¯
 	}
 int main() {
 	scanf("%d%d%d%d", &n, &m, &st, &ed);
 		for (int i = 0; i < n; i++) {
-			scanf("%d", &weight[i]);//¶ÁÈëµãÈ¨
+			scanf("%d", &weight[i]);//è¯»å…¥ç‚¹æƒ
 		}
 		int u, v, wt;
 		for (int i = 0; i < m; i++) {
